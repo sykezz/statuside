@@ -1,0 +1,12 @@
+name = "statuspage"
+type = "webpack"
+
+account_id = ""
+api_token = ""
+workers_dev = true
+
+kv_namespaces = [
+    { binding = "statuspage", id = "", preview_id =  ""}
+]
+
+compatibility_date = "2021-10-07"

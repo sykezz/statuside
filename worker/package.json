@@ -1,0 +1,25 @@
+{
+  "name": "cf-page",
+  "version": "1.0.0",
+  "description": "cf-page",
+  "main": "index.js",
+  "dependencies": {
+    "itty-router": "^2.4.4"
+  },
+  "devDependencies": {
+    "webpack": "^5.58.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sykezz/status-page.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sykezz/status-page/issues"
+  },
+  "homepage": "https://github.com/sykezz/status-page#readme"
+}
