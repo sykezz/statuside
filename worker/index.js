@@ -1,5 +1,5 @@
 import { Router } from 'itty-router'
-import { getIncidents, newIncident, systemGet, systemUpdate } from './functions.js'
+import { getIncidents, getSystems, newIncident, updateIncident, updateSystem } from './functions.js'
 
 const router = Router()
 
@@ -8,22 +8,24 @@ addEventListener('fetch', event => {
 })
 
 router.get('/', () => {
-  new Response('Home page')
+  return new Response('Home page')
 })
 
 router.get('/system', async () => { return getSystems() })
 router.post('/system', async request => {
-  let data = await request.json()
+  const data = await request.json()
   return updateSystem(data)
 })
+
 router.get('/incident', async () => { return getIncidents() })
 router.post('/incident/new', async request => {
-  let data = await request.json()
+  const data = await request.json()
   return newIncident(data)
 })
-router.post('/incident', async request => {
-  let data = await request.json()
-  return updateIncident(data)
+router.post('/incident/:datestring/:id', async request => {
+  const data = await request.json()
+  const { params } = request
+  return updateIncident(params.datestring, params.id, data)
 })
 
 // 404 for everything else

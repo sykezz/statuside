@@ -1,7 +1,7 @@
 export async function getSystems() {
   try {
     let data = await statuspage.get('systems')
-    return new Response(data, { status: 200 })
+    return new Response(data, { status: 200, headers: { 'content-type': 'application/json' } })
   } catch (err) {
     return new Response(err, { status: 500 })
   }
@@ -23,7 +23,7 @@ export async function getIncidents() {
     console.log('no data')
     data = []
   }
-  return new Response(data, { status: 200 })
+  return new Response(data, { status: 200, headers: { 'content-type': 'application/json' } })
 }
 
 export async function newIncident(data) {
@@ -51,16 +51,22 @@ export async function newIncident(data) {
   }
 }
 
-export async function updateIncident(data) {
+export async function updateIncident(date_string, id, data) {
   try {
-    const date_string = data.date_string
-    const id = data.id
     let incidents = await statuspage.get('incidents:' + date_string)
-    const index = json.findIndex(j => j.id === id)
 
-    if (index) {
+    if (incidents === null) {
+      return new Response("Incident not found!", { status: 404 })
+    }
+
+    incidents = JSON.parse(incidents)
+    const index = incidents.findIndex((j) => j.id === id);
+
+    if (index !== -1) {
       incidents[index] = data
-      return new Response("Updated!", { status: 200 })
+      incidents = JSON.stringify(incidents)
+      await statuspage.put('incidents:' + date_string, incidents)
+      return new Response(incidents, { status: 200, headers: { 'content-type': 'application/json' }  })
     } else {
       return new Response("Incident not found!", { status: 404 })
     }
@@ -76,7 +82,7 @@ export async function recentIncidents() {
     console.log('no data')
     data = []
   }
-  return new Response(data, { status: 200 })
+  return new Response(data, { status: 200, headers: { 'content-type': 'application/json' } })
 }
 
 // async function updateCounter()
