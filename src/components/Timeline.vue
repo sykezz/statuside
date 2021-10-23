@@ -3,26 +3,28 @@
     <h2 class="text-2xl mt-6 mb-3">Recent Incidents</h2>
     <div class="flex flex-col">
 
-      <div class="incidents-timeline pl-8 pb-8 border-l-2 border-gray-200 relative" v-for="(incident, i) in incidents" :key="i">
-        <h3 class="text-xl mb-4">Oct 16, 2021</h3>
-        <div class="flex flex-col p-4 rounded-md bg-white border border-gray-200 shadow">
-          <div class="flex justify-between ">
-              <span class="flex text-lg font-medium">
-                <status-level :status="1" class="h-5 w-5 mr-1" />
+      <div class="incidents-timeline" v-for="(day, i) in days" :key="i">
+        <h3 class="text-xl mb-4">{{ day.string }}</h3>
+        <div class="flex flex-col p-4 rounded-md bg-white border border-gray-200 shadow" v-if="day.incidents.length !== 0">
+          <div class="incident" v-for="(incident, i) in day.incidents" :key="i">
+            <div class="flex justify-between">
+              <span class="flex text-lg mb-2 font-medium">
+                <status-level :status="incident.status" class="h-5 w-5 mr-1" />
                 <span>{{ incident.name }}</span>
               </span>
               <div>
                 <span class="rounded-xl ml-2 py-1 px-2 bg-blue-500 text-white text-xs" v-for="(sys, i) in incident.systems" :key="i">{{ sys }}</span>
               </div>
-          </div>
-          <div class="mt-4 text-sm text-gray-600">
-            <p v-for="(activity, i ) in incident.activities" :key="i">
-              <span class="front-bold">{{ activity.status }}: </span>
-              <span>{{ activity.message }}</span>
-            </p>
-            
+            </div>
+            <div class="pb-4 text-sm text-gray-600">
+              <p class="mb-2" v-for="(activity, i ) in incident.activities" :key="i">
+                <span class="font-bold">{{ activity.status }} - </span>
+                <span>{{ activity.message }}</span>
+              </p>
+            </div>
           </div>
         </div>
+        <span v-else>No incidents reported</span>
       </div>
 
     </div>
@@ -35,13 +37,11 @@ import * as dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 
 dayjs.extend(utc)
-// const dayjs = djs.extend(utc) // use plugin
 
 export default {
   name: 'Timeline',
   components: {
     StatusLevel
-
   },
   props: {
   },
@@ -53,10 +53,27 @@ export default {
             "name": "testing",
             "open": false,
             "maintenance": false,
-            "level": "critical",
+            "status": 5,
             "systems": ["api", "dns"],
             "date": "2021-10-17",
             "timestamp": 1634457744,
+            "activities": [
+                {
+                    "timestamp": "2021-10-08T17:04:27.260Z",
+                    "status": "investigating",
+                    "message": "just found out"
+                }
+            ]
+        },
+        {
+            "id": "asdasdwewet24",
+            "name": "testing",
+            "open": false,
+            "maintenance": false,
+            "status": 5,
+            "systems": ["api", "dns"],
+            "date": "2021-10-17",
+            "timestamp": 1634462849,
             "activities": [
                 {
                     "timestamp": "2021-10-08T17:04:27.260Z",
@@ -70,7 +87,7 @@ export default {
             "name": "testing",
             "open": false,
             "maintenance": false,
-            "level": "critical",
+            "status": 5,
             "systems": ["api", "dns"],
             "date": "2021-10-16",
             "timestamp": 1634389344,
@@ -88,11 +105,11 @@ export default {
             ]
         },
         {
-            "id": "asdasdwewet24",
+            "id": "asdasdwewet27",
             "name": "testing",
             "open": false,
             "maintenance": false,
-            "level": "critical",
+            "status": 4,
             "systems": ["api", "dns"],
             "date": "2021-10-14",
             "timestamp": 1634216544,
@@ -118,9 +135,19 @@ export default {
 
     for (let i = 0; i < 15; i++) {
       let d = date.subtract(i, 'day')
-      this.days = [].concat(this.days, {date: d.format('YYYY/MM/DD'), string: d.format('MMM D, YYYY')})
+      let day = d.format('YYYY-MM-DD')
+      this.days = [].concat(this.days, {
+        date: day,
+        string: d.format('MMM D, YYYY'),
+        incidents: this.getDayIncidents(day)})
     }
-    
   },
+  methods: {
+    getDayIncidents(date) {
+      let incidents = this.incidents.filter(item => item.date.indexOf(date) !== -1)
+      // console.log(incidents)
+      return incidents
+    },
+  }
 }
 </script>

@@ -9,7 +9,6 @@ module.exports = {
         s3: '#6f42c1', // degraded
         s4: '#f66a0a', // partial
         s5: '#d73a49', // outage
-        'primary-dark': '#c77800',
       },
     },
     container: {

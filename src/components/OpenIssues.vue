@@ -12,7 +12,7 @@
             <span class="rounded-xl ml-2 py-1 px-2 bg-blue-500 text-white text-xs" v-for="(sys, i) in incident.systems" :key="i">{{ sys }}</span>
           </div>
         </div>
-        <div class="text-xs text-gray-500">{{ incident.timestamp }} - {{ incident.timestamp2 }}</div>
+        <div class="text-xs text-gray-500">{{ parseDate(incident.timestamp) }} - {{ parseDate(incident.timestamp2) }} UTC</div>
       </div>
       <div class="mt-4 text-sm text-gray-600">{{ incident.activities[0].message }}</div>
     </div>
@@ -21,6 +21,10 @@
 
 <script>
 import StatusLevel from './StatusLevel.vue'
+import * as dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+
+dayjs.extend(utc)
 
 export default {
   name: 'OpenIssues',
@@ -70,5 +74,10 @@ export default {
       ]
     }
   },
+  methods: {
+    parseDate(date) {
+      return dayjs.unix(date).utc().format('MMM D, HH:MM')
+    },
+  }
 }
 </script>

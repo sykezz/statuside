@@ -1,0 +1,24 @@
+.incidents-timeline {
+    @apply pl-8 pb-8 border-l-2 border-gray-200 relative
+}
+
+.incidents-timeline:before {
+    content: " ";
+    @apply w-6 h-6 rounded-full bg-white border-2 border-blue-400 z-10 absolute top-0 -left-3.5
+}
+
+.incident {
+    @apply flex flex-col mb-5 border-b
+}
+
+.incident p:last-child {
+    @apply mb-0
+}
+
+.incident:last-child {
+    @apply flex flex-col mb-0 border-0
+}
+
+.incidents-timeline .incident:last-child > div:last-child {
+    @apply pb-0
+}

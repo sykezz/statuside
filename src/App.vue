@@ -1,29 +1,22 @@
 <template>
   <div class="container mx-auto px-4 md:w-2/3">
-    <!-- <header /> -->
-    <section class="container">
-      <global-system-status />
-      <systems-status />
-      <open-issues />
-      <timeline />
+    <Header />
+    <section>
+      <router-view />
     </section>
-    <!-- <footer /> -->
+    <Footer />
   </div>
 </template>
 
 <script>
-import GlobalSystemStatus from './components/GlobalSystemStatus.vue'
-import OpenIssues from './components/OpenIssues.vue'
-import SystemsStatus from './components/SystemsStatus.vue'
-import Timeline from './components/Timeline.vue'
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
-    GlobalSystemStatus,
-    SystemsStatus,
-    OpenIssues,
-    Timeline,
+    Header,
+    Footer,
   }
 }
 </script>
@@ -34,8 +27,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #2c3e50;
-  /* margin-top: 60px; */
 }
 </style>
