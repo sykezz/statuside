@@ -4,6 +4,7 @@ import './assets/tailwind.css'
 import { createWebHistory, createRouter } from "vue-router";
 import Status from "@/Status.vue";
 import Demo from "@/Demo.vue";
+import Dashboard from "@/Dashboard.vue";
 
 const routes = [
   {
@@ -15,6 +16,11 @@ const routes = [
     path: "/demo",
     name: "Demo",
     component: Demo,
+  },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: Dashboard,
   },
 ];
 

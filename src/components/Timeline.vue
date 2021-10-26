@@ -9,22 +9,24 @@
           <div class="incident" v-for="(incident, i) in day.incidents" :key="i">
             <div class="flex justify-between">
               <span class="flex text-lg mb-2 font-medium">
-                <status-level :status="incident.status" class="h-5 w-5 mr-1" />
-                <span>{{ incident.name }}</span>
+                <span class="mr-1">{{ incident.name }}</span>
+                <case-status class="mr-1" :open="incident.open" />
+                <status-level :level="incident.level" />
               </span>
               <div>
-                <span class="rounded-xl ml-2 py-1 px-2 bg-blue-500 text-white text-xs" v-for="(sys, i) in incident.systems" :key="i">{{ sys }}</span>
+                <span class="rounded-xl ml-1 py-1 px-2 bg-blue-500 text-white text-xs" v-for="(sys, i) in incident.systems" :key="i">{{ sys }}</span>
               </div>
             </div>
             <div class="pb-4 text-sm text-gray-600">
-              <p class="mb-2" v-for="(activity, i ) in incident.activities" :key="i">
+              <div class="pb-2" v-for="(activity, i ) in incident.activities" :key="i">
                 <span class="font-bold">{{ activity.status }} - </span>
                 <span>{{ activity.message }}</span>
-              </p>
+                <div class="text-xs text-gray-500">{{ parseDate(activity.timestamp) }} UTC</div>
+              </div>
             </div>
           </div>
         </div>
-        <span v-else>No incidents reported</span>
+        <span class="text-gray-600" v-else>No incidents reported</span>
       </div>
 
     </div>
@@ -35,98 +37,21 @@
 import StatusLevel from './StatusLevel.vue'
 import * as dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
+import CaseStatus from './CaseStatus.vue'
 
 dayjs.extend(utc)
 
 export default {
   name: 'Timeline',
   components: {
-    StatusLevel
+    StatusLevel,
+    CaseStatus
   },
   props: {
+    incidents: Object,
   },
   data: function() {
     return {
-      incidents: [
-        {
-            "id": "asdasdwewet23",
-            "name": "testing",
-            "open": false,
-            "maintenance": false,
-            "status": 5,
-            "systems": ["api", "dns"],
-            "date": "2021-10-17",
-            "timestamp": 1634457744,
-            "activities": [
-                {
-                    "timestamp": "2021-10-08T17:04:27.260Z",
-                    "status": "investigating",
-                    "message": "just found out"
-                }
-            ]
-        },
-        {
-            "id": "asdasdwewet24",
-            "name": "testing",
-            "open": false,
-            "maintenance": false,
-            "status": 5,
-            "systems": ["api", "dns"],
-            "date": "2021-10-17",
-            "timestamp": 1634462849,
-            "activities": [
-                {
-                    "timestamp": "2021-10-08T17:04:27.260Z",
-                    "status": "investigating",
-                    "message": "just found out"
-                }
-            ]
-        },
-        {
-            "id": "asdasdwewet26",
-            "name": "testing",
-            "open": false,
-            "maintenance": false,
-            "status": 5,
-            "systems": ["api", "dns"],
-            "date": "2021-10-16",
-            "timestamp": 1634389344,
-            "activities": [
-                {
-                    "timestamp": "2021-10-08T17:04:27.260Z",
-                    "status": "investigating",
-                    "message": "just found out"
-                },
-                {
-                    "timestamp": "2021-10-09T17:04:27.260Z",
-                    "status": "resolved",
-                    "message": "we fixed it boys"
-                }
-            ]
-        },
-        {
-            "id": "asdasdwewet27",
-            "name": "testing",
-            "open": false,
-            "maintenance": false,
-            "status": 4,
-            "systems": ["api", "dns"],
-            "date": "2021-10-14",
-            "timestamp": 1634216544,
-            "activities": [
-                {
-                    "timestamp": "2021-10-08T17:04:27.260Z",
-                    "status": "investigating",
-                    "message": "just found out"
-                },
-                {
-                    "timestamp": "2021-10-09T17:04:27.260Z",
-                    "status": "resolved",
-                    "message": "we fixed it boys"
-                }
-            ]
-        }
-      ],
       days: [],
     }
   },
@@ -145,8 +70,10 @@ export default {
   methods: {
     getDayIncidents(date) {
       let incidents = this.incidents.filter(item => item.date.indexOf(date) !== -1)
-      // console.log(incidents)
       return incidents
+    },
+    parseDate(date) {
+      return dayjs(date).utc().format('MMM D, HH:MM')
     },
   }
 }

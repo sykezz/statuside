@@ -1,13 +1,13 @@
 <template>
   <global-system-status />
   <systems-status />
-  <open-issues />
+  <open-incidents />
   <timeline />
 </template>
 
 <script>
 import GlobalSystemStatus from './components/GlobalSystemStatus.vue'
-import OpenIssues from './components/OpenIssues.vue'
+import OpenIncidents from './components/OpenIncidents.vue'
 import SystemsStatus from './components/SystemsStatus.vue'
 import Timeline from './components/Timeline.vue'
 
@@ -16,7 +16,7 @@ export default {
   components: {
     GlobalSystemStatus,
     SystemsStatus,
-    OpenIssues,
+    OpenIncidents,
     Timeline,
   }
 }

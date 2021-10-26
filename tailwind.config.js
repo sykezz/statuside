@@ -6,9 +6,10 @@ module.exports = {
       colors: {
         s1: '#28a745', // normal
         s2: '#6a737d', // maintenance
-        s3: '#6f42c1', // degraded
-        s4: '#f66a0a', // partial
+        s3: '#5f26c8', // degraded
+        s4: '#ff8b00', // partial
         s5: '#d73a49', // outage
+        green2: '#0a0',
       },
     },
     container: {
