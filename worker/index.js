@@ -1,5 +1,5 @@
 import { Router } from 'itty-router'
-import { getIncidents, getSystems, newIncident, updateIncident, updateSystem } from './functions.js'
+import { CorsResponse, getIncidents, getSystems, newIncident, updateIncident, updateSystem } from './functions.js'
 
 const router = Router()
 
@@ -8,7 +8,7 @@ addEventListener('fetch', event => {
 })
 
 router.get('/', () => {
-  return new Response('Home page')
+  return CorsResponse("Hello!", 200)
 })
 
 router.get('/system', async () => { return getSystems() })
@@ -29,4 +29,4 @@ router.post('/incident/:datestring/:id', async request => {
 })
 
 // 404 for everything else
-router.all('*', () => new Response('Not Found.', { status: 404 }))
+router.all('*', () => CorsResponse("Not Found.", 404))
