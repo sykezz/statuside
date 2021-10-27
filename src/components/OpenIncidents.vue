@@ -38,6 +38,11 @@ export default {
       openIncidents: [],
     }
   },
+  watch: {
+    incidents() {
+      this.openIncidents = this.incidents.filter(item => item.maintenance == true)
+    }
+  },
   created() {
     this.openIncidents = this.incidents.filter(item => item.maintenance == true)
   },

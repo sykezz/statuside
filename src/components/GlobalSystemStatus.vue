@@ -27,19 +27,33 @@ export default {
       statusClass: [],
     }
   },
-  created() {
-    let level = Math.max.apply(Math, this.systems.map(incident => incident.level))
-
-    switch (level) {
-      case 1: this.icon = 'CheckCircleIcon'; this.statusMessage = 'All Systems Operational'; break;
-      case 2: this.icon = 'InformationCircleIcon'; this.statusMessage = 'Under Maintenance'; break;
-      case 3: this.icon = 'TrendingDownIcon'; this.statusMessage = 'Degraded Performance'; break;
-      case 4: this.icon = 'ExclamationIcon'; this.statusMessage = 'Partial Outage'; break;
-      case 5: this.icon = 'XCircleIcon'; this.statusMessage = 'Major Outage'; break;
+  watch: {
+    systems() {
+      this.getLevels()
     }
+  },
+  created() {
+    this.getLevels()
+  },
+  methods: {
+    getLevels()
+    {
+      if (this.systems.length === 0) {
+        return
+      }
 
-    this.statusClass = ['bg-s' + level]
-    
+      let level = Math.max.apply(Math, this.systems.map(incident => incident.level))
+
+      switch (level) {
+        case 1: this.icon = 'CheckCircleIcon'; this.statusMessage = 'All Systems Operational'; break;
+        case 2: this.icon = 'InformationCircleIcon'; this.statusMessage = 'Under Maintenance'; break;
+        case 3: this.icon = 'TrendingDownIcon'; this.statusMessage = 'Degraded Performance'; break;
+        case 4: this.icon = 'ExclamationIcon'; this.statusMessage = 'Partial Outage'; break;
+        case 5: this.icon = 'XCircleIcon'; this.statusMessage = 'Major Outage'; break;
+      }
+
+      this.statusClass = ['bg-s' + level]
+    }
   }
 }
 </script>

@@ -2,8 +2,7 @@
   <div>
     <h2 class="text-2xl mt-6 mb-3">Recent Incidents</h2>
     <div class="flex flex-col">
-
-      <div class="incidents-timeline" v-for="(day, i) in days" :key="i">
+      <div class="incidents-timeline" v-for="(day, i) in timeline" :key="i">
         <h3 class="text-xl mb-4">{{ day.string }}</h3>
         <div class="flex flex-col p-4 rounded-md bg-white border border-gray-200 shadow" v-if="day.incidents.length !== 0">
           <div class="incident" v-for="(incident, i) in day.incidents" :key="i">
@@ -28,7 +27,6 @@
         </div>
         <span class="text-gray-600" v-else>No incidents reported</span>
       </div>
-
     </div>
   </div>
 </template>
@@ -52,25 +50,37 @@ export default {
   },
   data: function() {
     return {
-      days: [],
+      timeline: [],
     }
   },
   created() {
-    let date = dayjs().utc()
-
-    for (let i = 0; i < 15; i++) {
-      let d = date.subtract(i, 'day')
-      let day = d.format('YYYY-MM-DD')
-      this.days = [].concat(this.days, {
-        date: day,
-        string: d.format('MMM D, YYYY'),
-        incidents: this.getDayIncidents(day)})
+    this.makeTimeline()
+  },
+  watch: {
+    incidents() {
+      this.timeline.forEach(td => {
+        td.incidents = this.getDayIncidents(td.date)
+      });
     }
   },
   methods: {
+    makeTimeline() {
+      let date = dayjs().utc()
+
+      for (let i = 0; i < 15; i++) {
+        let d = date.subtract(i, 'day')
+        let day = d.format('YYYY-MM-DD')
+
+        this.timeline = [].concat(this.timeline, {
+          date: day,
+          string: d.format('MMM D, YYYY'),
+          incidents: this.getDayIncidents(day)
+        })
+      }
+    },
     getDayIncidents(date) {
-      let incidents = this.incidents.filter(item => item.date.indexOf(date) !== -1)
-      return incidents
+      let day_incidents = this.incidents.filter(item => item.date.indexOf(date) !== -1)
+      return day_incidents
     },
     parseDate(date) {
       return dayjs(date).utc().format('MMM D, HH:MM')
