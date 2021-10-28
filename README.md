@@ -1,24 +1,17 @@
-# cf-page
+# Statusly
 
-## Project setup
-```
-npm install
-```
+A Status Page built on Cloudflare Worker and Pages (Vue + Tailwind).  
+Inspired by [Cachet](https://cachethq.io/), [Statusfy](https://github.com/juliomrqz/statusfy), and [Atlassian Statuspage](https://www.atlassian.com/software/statuspage).
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+⚠️ This is still work in progress, so there might be bugs and stuff missing.
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Setup
+- Create a Pages project with Vue preset.
+- Create a KV and Worker.
+- Copy `worker/wrangler.toml.sample` to `worker/wrangler.toml` and add your _account_id_, _api_token_, and _kv_namespaces_.
+- `wrangler build` and `wrangler publish`
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Contributing
+
+Contributions are welcome 😄

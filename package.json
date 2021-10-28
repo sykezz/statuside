@@ -1,5 +1,5 @@
 {
-  "name": "cf-page",
+  "name": "statusly",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -47,6 +47,6 @@
     "last 2 versions",
     "not dead"
   ],
-  "_id": "cf-page@0.1.0",
+  "_id": "statusly@0.1.0",
   "readme": "ERROR: No README data found!"
 }
