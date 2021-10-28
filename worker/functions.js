@@ -29,8 +29,14 @@ export async function getIncidents() {
 export async function newIncident(data) {
   try {
     const date_string = new Date().toISOString().slice(0, 7)
-    data.timestamp = Date.now()
     let incidents = await statuskv.get('incidents:' + date_string)
+
+    if (!data.date && !data.timestamp) {
+      data.date = new Date().toISOString().slice(0, 10)
+      data.timestamp = Math.floor(Date.now() / 1000)
+    }
+
+    data.id = Date.now().toString(36) + Math.random().toString(36).substr(2)
 
     if (incidents === null) {
       console.log('doesnt exist')
@@ -40,11 +46,9 @@ export async function newIncident(data) {
       console.log('exist')
       incidents = JSON.parse(incidents)
       incidents = [].concat(incidents, data)
-
     }
 
     await statuskv.put('incidents:' + date_string, JSON.stringify(incidents))
-    // const counter = await updateCounter()
     return CorsResponse("Created!", 200)
   } catch (err) {
     return CorsResponse(err, 500)
