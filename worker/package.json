@@ -1,7 +1,7 @@
 {
-  "name": "statusly",
+  "name": "statuside",
   "version": "1.0.0",
-  "description": "statusly",
+  "description": "statuside",
   "main": "index.js",
   "dependencies": {
     "itty-router": "^2.4.4"
@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sykezz/statusly.git"
+    "url": "git+https://github.com/sykezz/statuside.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/sykezz/statusly/issues"
+    "url": "https://github.com/sykezz/statuside/issues"
   },
-  "homepage": "https://github.com/sykezz/statusly"
+  "homepage": "https://github.com/sykezz/statuside"
 }

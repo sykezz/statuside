@@ -7,26 +7,23 @@ addEventListener('fetch', event => {
   event.respondWith(router.handle(event.request))
 })
 
-router.get('/', () => {
-  return CorsResponse("Hello!", 200)
-})
+const requireAuth = request => {
+  const auth = request.headers.get('Authorization')
+  if (!auth) {
+    return CorsResponse(JSON.stringify({'message': 'Unauthorized'}), 401)
+  }
 
-router.get('/system', async () => { return getSystems() })
-router.post('/system', async request => {
-  const data = await request.json()
-  return updateSystem(data)
-})
+  if (auth != AUTH_SECRET) {
+    return CorsResponse(JSON.stringify({'message': 'Unauthorized'}), 401)
+  }
+}
 
-router.get('/incident', async () => { return getIncidents() })
-router.post('/incident/new', async request => {
-  const data = await request.json()
-  return newIncident(data)
-})
-router.post('/incident/:datestring/:id', async request => {
-  const data = await request.json()
-  const { params } = request
-  return updateIncident(params.datestring, params.id, data)
-})
+router.get('/', () => { return CorsResponse("Hello!", 200)})
+router.get('/system', getSystems)
+router.post('/system', requireAuth, updateSystem)
+router.get('/incident', getIncidents)
+router.post('/incident/new', requireAuth, newIncident)
+router.post('/incident/:datestring/:id', requireAuth, updateIncident)
 
 // 404 for everything else
 router.all('*', () => CorsResponse("Not Found.", 404))

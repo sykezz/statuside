@@ -1,5 +1,5 @@
 {
-  "name": "statusly",
+  "name": "statuside",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -47,6 +47,6 @@
     "last 2 versions",
     "not dead"
   ],
-  "_id": "statusly@0.1.0",
+  "_id": "statuside@0.1.0",
   "readme": "ERROR: No README data found!"
 }
