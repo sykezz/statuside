@@ -1,6 +1,6 @@
 <template>
   <h2 class="text-2xl mt-6 mb-3">Scheduled Maintenance</h2>
-  <div class="flex flex-col rounded-md bg-white border border-gray-200 shadow">
+  <div class="flex flex-col rounded-md bg-white border border-gray-200 shadow" v-if="openIncidents.length !== 0">
     <div class="open-incidents" v-for="(incident, i) in openIncidents" :key="i">
       <div class="flex justify-between">
         <div class="flex flex-row">
@@ -15,6 +15,7 @@
       <div class="mt-3 text-sm text-gray-600">{{ incident.activities[0].message }}</div>
     </div>
   </div>
+  <span class="text-gray-600" v-else>No upcoming maintenance scheduled.</span>
 </template>
 
 <script>
@@ -40,11 +41,11 @@ export default {
   },
   watch: {
     incidents() {
-      this.openIncidents = this.incidents.filter(item => item.maintenance == true)
+      this.openIncidents = this.incidents.filter(item => item.maintenance == true && item.open == true)
     }
   },
   created() {
-    this.openIncidents = this.incidents.filter(item => item.maintenance == true)
+    this.openIncidents = this.incidents.filter(item => item.maintenance == true && item.open == true)
   },
   methods: {
     parseDate(date) {
