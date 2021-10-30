@@ -7,7 +7,8 @@ export async function getSystems() {
   }
 }
 
-export async function updateSystem(data) {
+export async function updateSystem(request) {
+  const data = await request.json()
   try {
     await statuskv.put('systems', JSON.stringify(data))
     return CorsResponse("Updated!", 200)
@@ -26,7 +27,8 @@ export async function getIncidents() {
   return CorsResponse(data, 200)
 }
 
-export async function newIncident(data) {
+export async function newIncident(request) {
+  const data = await request.json()
   try {
     const date_string = new Date().toISOString().slice(0, 7)
     let incidents = await statuskv.get('incidents:' + date_string)
@@ -55,7 +57,11 @@ export async function newIncident(data) {
   }
 }
 
-export async function updateIncident(date_string, id, data) {
+export async function updateIncident(request) {
+  const data = await request.json()
+  const { params } = request
+  const date_string = params.datestring
+  const id = params.id
   try {
     let incidents = await statuskv.get('incidents:' + date_string)
 
