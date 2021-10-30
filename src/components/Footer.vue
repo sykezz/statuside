@@ -1,6 +1,6 @@
 <template>
 <footer class="mt-4 py-4 px-5 flex justify-between text-sm text-gray-500 border-t border-gray-200">
-      <span>&copy; 2021 Statusly</span>
+      <span>&copy; 2021 Statuside</span>
       <span class="inline-flex justify-center">
         <a href="#">
           <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
