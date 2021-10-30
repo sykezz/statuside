@@ -10,11 +10,11 @@
   "dependencies": {
     "@heroicons/vue": "^1.0.4",
     "@tailwindcss/postcss7-compat": "^2.0.2",
-    "autoprefixer": "^9",
+    "autoprefixer": "^9.8.8",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.7",
-    "postcss": "^7",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
+    "postcss": "^7.0.39",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "vue": "^3.0.0",
     "vue-router": "^4.0.12"
   },
@@ -25,8 +25,7 @@
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^7.0.0",
-    "vue-cli-plugin-tailwind": "~2.0.6"
+    "eslint-plugin-vue": "^7.0.0"
   },
   "eslintConfig": {
     "root": true,
