@@ -18,12 +18,30 @@ export async function updateSystem(request) {
 }
 
 export async function getIncidents() {
-  const date_string = new Date().toISOString().slice(0, 7)
+  const date = new Date()
+  let date_string = date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1)
   let data = await statuskv.get('incidents:' + date_string)
+
+  // console.log(data)
   if (!data) {
-    console.log('no data')
-    data = []
+    console.log('data1 [' + date_string + ']: no data')
+    data = JSON.stringify([])
   }
+
+  if (date.getUTCDate() < 15) {
+    date.setDate(0); // 0 will result in the last day of the previous month
+    date_string = date.getUTCFullYear() + '-' + (date.getUTCMonth() + 1)
+    console.log('data2 [' + date_string + ']: fetching')
+    let data2 = await statuskv.get('incidents:' + date_string)
+    // console.log(data2)
+    if (data2) {
+      data = [].concat(JSON.parse(data), JSON.parse(data2))
+      data = JSON.stringify(data)
+    } else {
+      console.log('data2: no data')
+    }
+  }
+
   return CorsResponse(data, 200)
 }
 
@@ -106,7 +124,7 @@ export async function recentIncidents() {
 export function CorsResponse(data, status) {
   return new Response(data, {
     status: status,
-    headers: { 
+    headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET,HEAD,POST,OPTIONS',
       'content-type': 'application/json'

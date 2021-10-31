@@ -10,15 +10,15 @@ addEventListener('fetch', event => {
 const requireAuth = request => {
   const auth = request.headers.get('Authorization')
   if (!auth) {
-    return CorsResponse(JSON.stringify({'message': 'Unauthorized'}), 401)
+    return CorsResponse(JSON.stringify({ 'message': 'Unauthorized' }), 401)
   }
 
   if (auth != AUTH_SECRET) {
-    return CorsResponse(JSON.stringify({'message': 'Unauthorized'}), 401)
+    return CorsResponse(JSON.stringify({ 'message': 'Unauthorized' }), 401)
   }
 }
 
-router.get('/', () => { return CorsResponse("Hello!", 200)})
+router.get('/', () => { return CorsResponse("Hello!", 200) })
 router.get('/system', getSystems)
 router.post('/system', requireAuth, updateSystem)
 router.get('/incident', getIncidents)
