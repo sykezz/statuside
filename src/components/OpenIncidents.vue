@@ -1,6 +1,6 @@
 <template>
   <h2 class="text-2xl mt-6 mb-3">Scheduled Maintenance</h2>
-  <div class="flex flex-col rounded-md bg-white border border-gray-200 shadow" v-if="openIncidents.length !== 0">
+  <div class="flex flex-col rounded-md bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-500 shadow" v-if="openIncidents.length !== 0">
     <div class="open-incidents" v-for="(incident, i) in openIncidents" :key="i">
       <div class="flex justify-between">
         <div class="flex flex-row">
@@ -11,11 +11,11 @@
           <span class="rounded-xl ml-1 py-1 px-2 bg-blue-500 text-white text-xs" v-for="(sys, i) in incident.systems" :key="i">{{ sys }}</span>
         </div>
       </div>
-      <div class="mt-1 text-xs text-gray-500">{{ parseDate(incident.timestamp) }} - {{ parseDate(incident.timestamp2) }} UTC</div>
-      <div class="mt-3 text-sm text-gray-600">{{ incident.activities[0].message }}</div>
+      <div class="date">{{ parseDate(incident.timestamp) }} - {{ parseDate(incident.timestamp2) }} UTC</div>
+      <div class="message mt-3">{{ incident.activities[0].message }}</div>
     </div>
   </div>
-  <span class="text-gray-600" v-else>No upcoming maintenance scheduled.</span>
+  <span class="no-message" v-else>No upcoming maintenance scheduled.</span>
 </template>
 
 <script>

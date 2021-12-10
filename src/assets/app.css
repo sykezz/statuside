@@ -1,5 +1,27 @@
+body {
+    @apply font-sans antialiased text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors
+}
+
+/* common */
+/* .dark:text-s3 {
+    color: #7f4adf;
+} */
+.date {
+    @apply mt-1 text-xs text-gray-500
+}
+
+.message {
+    @apply text-sm text-gray-600 dark:text-gray-100
+}
+
+.no-message {
+    @apply text-gray-600 dark:text-gray-400
+}
+
+/* others */
+
 .systems {
-    @apply flex flex-row justify-between p-4 border-b
+    @apply flex flex-row justify-between p-5 border-b dark:border-gray-500
 }
 
 .systems:last-child {
@@ -7,7 +29,7 @@
 }
 
 .open-incidents {
-    @apply flex flex-col p-4 border-b
+    @apply flex flex-col p-4 border-b dark:border-gray-500
 }
 
 .open-incidents:last-child {
@@ -15,16 +37,16 @@
 }
 
 .incidents-timeline {
-    @apply pl-8 pb-8 border-l-2 border-gray-200 relative
+    @apply pl-8 pb-8 border-l-2 border-gray-200 dark:border-gray-500 relative
 }
 
 .incidents-timeline:before {
     content: " ";
-    @apply w-6 h-6 rounded-full bg-white border-2 border-blue-400 z-10 absolute top-0 -left-3.5
+    @apply w-6 h-6 rounded-full bg-white dark:bg-gray-900 border-2 border-blue-400 z-10 absolute top-0 -left-3.5
 }
 
 .incident {
-    @apply flex flex-col mb-4 border-b
+    @apply flex flex-col mb-4 border-b dark:border-gray-500
 }
 
 .incident:last-child {
